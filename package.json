@@ -1,0 +1,22 @@
+{
+  "name": "myjsproject",
+  "version": "1.0.0",
+  "description": "my first javascript project attempt",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Snickode7/myJsProject.git"
+  },
+  "author": "Nick Matheis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Snickode7/myJsProject/issues"
+  },
+  "homepage": "https://github.com/Snickode7/myJsProject#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
