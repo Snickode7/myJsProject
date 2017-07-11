@@ -1,4 +1,4 @@
 module.exports = {
-    appName: 'Trail Finder!!',
+    appName: 'Trail Tracker!!',
     port: 7777
 }

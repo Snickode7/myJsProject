@@ -1,0 +1,35 @@
+body{
+    background: forestgreen;
+}
+
+h1{
+    margin: 0 ;
+    color: red;
+    text-align: center;
+    font-size: 34px;
+} 
+
+.submit{
+    color: red;
+    font-size: 15px;
+}
+
+.trailDiffButtons{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.trailInfoButtons{
+    text-align: center;
+    color: black;
+    margin: 20px;
+}
+
+.descriptionArea{
+    text-align: center;
+}
+
+.textBox{
+    margin-top: -3px;
+    
+}
