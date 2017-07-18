@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/Snickode7/myJsProject#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.2",
+    "mongoose": "^4.11.3",
+    "pug": "^2.0.0-rc.2"
   }
 }

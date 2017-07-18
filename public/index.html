@@ -8,34 +8,25 @@
         </head>
     
         <h1>My Trail Tracker!!!</h1>
-        <form class="trailInfoButtons">
+        <form class="formBox" method="POST">
+
             Trail Name:
             <input type="text" name: trailName>
-            <button type="submit" name: trailNameButton class="submit">Submit</button><br>
-        </form>   
+            <br>  
         
-        <form class="trailInfoButtons">
             Trail Length:
             <input type="text" name: trailLength>
-            <button type="submit" name: trailLengthButton class="submit">Submit</button><br>
-        </form>
+            <br>
         
-        <form class="trailInfoButtons">
             Trail Location:
             <input type="text" name: trailLocation>
-            <button type="submit" name: trailLocationButton class="submit">Submit</button><br>
-        </form>
+            <br>
         
-        <form class="trailDiffButtons">
-            Trail Difficulty:<br>
-            <input type="radio" name="difficulty" value="easy" checked> Easy<br>
-            <input type="radio" name="difficulty" value="hard"> Hard<br>
-            <input type="radio" name="difficulty" value="intermediate"> Intermediate
-        </form>
+            Trail Difficulty:
+            <input type="text" name: trailDifficulty>
         
-        <form class="descriptionArea">
-            Trail Description/Notes:
-            <p class="textBox" id="box"><textarea name="descriptionArea" cols="60" rows="10" required="required">
+           
+            <p class="textBox" id="box">Trail Description/Notes:<br><textarea name="trailDescription" cols="60" rows="10" required="required">
                 </textarea><br/>
             <input type="submit" value="Submit"> <input type="reset"></p>
         </form>

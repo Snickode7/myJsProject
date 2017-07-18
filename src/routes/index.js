@@ -1,15 +1,49 @@
  //src/routes/index.js
+const express = require('express');
 const router = require('express').Router();
+var TrailInfo = require('../models/index')
 
 router.use('/doc', function(req, res, next) {
   res.end(`Documentation http://expressjs.com/`);
 });
 
-router.get('/file', function(req, res, next) {
-  res.json(FILES);
+
+//GET entries from form /trailInfo
+router.get('/trailInfo', function(req, res, next) {
+   return res.render('trailInfo');
 });
 
-router.post('/file', function(req, res, next) {
+//POST entries from form /trailInfo
+router.post('/trailInfo', function(req, res, next){
+    //create object with form input
+    var trailData = {
+       trailName: req.body.trailName,
+       trailLength: req.body.trailLength,
+       trailLocation: req.body.trailLocation,
+       trailDifficulty: req.body.trailDifficulty,
+       trailDescription: req.body.trailDescription
+    };
+   
+    
+    //Insert document into mongo
+    TrailInfo.create(trailData, function(error, trailInfo) {
+        if (error) {
+           return next(error); 
+        }
+    
+    });
+});
+
+// GET /
+router.get('/', function(req, res, next) {
+  return res.render('index', { title: 'Home' });
+});
+
+
+    
+    
+    
+/*router.post('/file', function(req, res, next) {
   const newId = '' + FILES.length;
   const data = req.body;
   data.id = newId;
@@ -48,6 +82,6 @@ router.get('/file/:fileId', function(req, res, next) {
 
 //router.get('/file/:fileId', function(req, res, next) {
   //res.end(`Reading file '${req.params.fileId}'`);
-//});
+//});*/
 
 module.exports = router;

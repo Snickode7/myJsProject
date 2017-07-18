@@ -30,6 +30,14 @@ h1{
 }
 
 .textBox{
-    margin-top: -3px;
+    margin-top: 13px;
+    text-align: center;
     
+}
+
+.formBox{
+    width: 50%;
+    margin: 0 auto;
+    border: solid black 6px;
+    background-color: darkseagreen;
 }
