@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-    <head>
-    </head>
-    <body>
-    <script id="list-template" type="text/x-handlebars-template">
+    
+        <body>
+            <head>
+                <title>Trails Completed!</title>
+                
+                <link rel="stylesheet" href="style.css">
+            </head>
+            <h1>Trails Completed</h1>
+            <ul class= myList id="">
+                <li>#{trailName}</li>
+                <li>#{trailLength}</li>
+                <li>#{trailLocation}</li>
+                <li>#{trailDifficulty}</li>
+                <li>#{trailDescription}</li>
+            </ul>
+        </div> 
+        <script id="list-template" type="text/x-handlebars-template">
+            </body>
 
-      <ul class="list-group">
-        {{#each files}}
-        <li class="list-group-item">
-          <strong>{{title}}</strong> - {{description}}
-        </li>
-        {{/each}}
-      </ul>
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js"></script>
-    </body> 
+       

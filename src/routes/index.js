@@ -1,43 +1,121 @@
  //src/routes/index.js
-const express = require('express');
+//const express = require('express');
 const router = require('express').Router();
-var TrailInfo = require('../models/index')
+//const TrailInfo = require('../models/index');
+const mongoose = require('mongoose');
 
-router.use('/doc', function(req, res, next) {
-  res.end(`Documentation http://expressjs.com/`);
-});
-
-
-//GET entries from form /trailInfo
-router.get('/trailInfo', function(req, res, next) {
-   return res.render('trailInfo');
-});
-
-//POST entries from form /trailInfo
-router.post('/trailInfo', function(req, res, next){
-    //create object with form input
-    var trailData = {
-       trailName: req.body.trailName,
-       trailLength: req.body.trailLength,
-       trailLocation: req.body.trailLocation,
-       trailDifficulty: req.body.trailDifficulty,
-       trailDescription: req.body.trailDescription
-    };
-   
-    
-    //Insert document into mongo
-    TrailInfo.create(trailData, function(error, trailInfo) {
-        if (error) {
-           return next(error); 
-        }
-    
-    });
-});
+//router.use('/doc', function(req, res, next) {
+  //res.end(`Documentation http://expressjs.com/`);
+//});
 
 // GET /
 router.get('/', function(req, res, next) {
-  return res.render('index', { title: 'Home' });
+    mongoose.model('TrailInfo').find({deleted: {$ne: true}}, function(err, files) {
+        if (err) {
+            console.log(err);
+            return res.render('index');
+        }
+        res.json(files);
+    });
+        
+        
 });
+
+
+
+
+//POST entries from form /
+router.post('/', function(req, res, next){
+    const TrailFile = mongoose.model('TrailInfo');
+    //create object with form input
+    const trailData = {
+       trailName : req.body.trailName,
+       trailLength : req.body.trailLength,
+       trailLocation : req.body.trailLocation,
+       trailDifficulty : req.body.trailDifficulty,
+       trailDescription : req.body.trailDescription
+    };
+    
+    TrailFile.create(trailData, function(err, newFile) {
+        if(err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+    
+        res.json(newFile);
+    });   
+});
+
+
+
+
+router.put('/trailInfo/:trailId', function(req, res, next) {
+    const TrailFile = mongoose.model('TrailInfo');
+    const trailId = req.params.trailId;
+    
+    TrailFile.findById(trailId, function(err, file) {
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+        if (!file) {
+            return res.status(404).json({message: "This File cannot be found??"});
+        }
+        
+        trailFile.trailName = req.body.trailName;
+        trailFile.trailLength = req.body.trailLength;
+        trailFile.trailLocation = req.body.trailLocation;
+        trailFile.trailDifficulty = req.body.trailDifficulty;
+        trailFile.trailDescription = req.body.trailDescription;
+        
+        trailFile.save(function(err, savedFile) {
+            res.json(savedFile);
+        })
+        
+    })
+
+});
+
+
+
+router.delete('/trailInfo/:trailId', function(req, res, next) {
+    const TrailFile = mongoose.model('TrailInfo');
+    const trailId = req.params.trailId;
+    
+    TrailFile.findById(trailId, function(err, file) {
+        if (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+        if (!file) {
+            return res.status(404).json({message: "File not found"});
+        }
+        
+        file.deleted = true;
+        
+        file.save(function(err, erasedFile) {
+            res.json(erasedFile);
+        })
+    })
+});
+
+
+
+router.get('/trailInfo/:trailId', function(req, res, next) {
+    const {trailId} = req.params;
+    const trailFile = TrailInfo.find(entry => entry.id === trailId);
+    if (!trailFile) {
+        return res.status(404).end(`Could not find the file '${trailID}'`);
+    }
+    
+    
+    res.json(file);
+});
+   
+
+
+    
+ 
 
 
     
