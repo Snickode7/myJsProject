@@ -1,16 +1,20 @@
+/********CSS**********/
+
+/*******Will add more in the future************/
+
+
 body{
     background: forestgreen;
 }
 
 h1{
     margin: 0 ;
-    color: red;
+    color: royalblue;
     text-align: center;
     font-size: 34px;
 } 
 
 .submit{
-    color: red;
     font-size: 15px;
 }
 
@@ -25,14 +29,7 @@ h1{
     margin: 20px;
 }
 
-.descriptionArea{
-    text-align: center;
-}
 
-.textBox{
-    margin-top: 13px;
-    text-align: center;
-    
 }
 
 .formBox{
@@ -41,3 +38,4 @@ h1{
     border: solid black 6px;
     background-color: darkseagreen;
 }
+

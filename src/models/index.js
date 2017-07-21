@@ -1,3 +1,7 @@
+/*Schema for the Mongoose*/
+
+
+
 var mongoose = require('mongoose');
 
 var TrailSchema = new mongoose.Schema({
@@ -10,6 +14,10 @@ var TrailSchema = new mongoose.Schema({
     trailDifficulty: String,
         
     trailDescription: String,
+    
+    created_at: { type: Date, default: Date.now },
+    
+    deleted: {type: Boolean, default: false}
 });
 
 
@@ -24,9 +32,9 @@ TrailInfo.count({}, function(err, count) {
     
     if (count > 0) return;
     
-    const trailsInfo = require('./trail.json');
+    const trailFiles = require('./trail.json');
     
-    TrailInfo.create(trailsInfo, function(err, newTrailsInfo) {
+    TrailInfo.create(trailFiles, function(err, newFiles) {
         if (err) {
             throw err;
         }

@@ -3,35 +3,95 @@
     <body>
         <head>
             <title>Trail Tracker!</title>
-
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" href="style.css">
         </head>
     
         <h1>My Trail Tracker!!!</h1>
-        <form class="formBox" method="POST">
+        
+  
+        <!--------/***********Form**************/--------->
+        
+        
+        <div class="container-fluid">
+            <form class="formBox" method="POST">
 
-            Trail Name:
-            <input type="text" name: trailName>
-            <br>  
-        
-            Trail Length:
-            <input type="text" name: trailLength>
-            <br>
-        
-            Trail Location:
-            <input type="text" name: trailLocation>
-            <br>
-        
-            Trail Difficulty:
-            <input type="text" name: trailDifficulty>
-        
-           
-            <p class="textBox" id="box">Trail Description/Notes:<br><textarea name="trailDescription" cols="60" rows="10" required="required">
+                Trail Name:
+                <input type="text" class="form-control" id="file-trailName" placeholder="Name">
+                <br>  
+
+                Trail Length:
+                <input type="text" class="form-control" id="file-trailLength" placeholder="Length">
+                <br>
+
+                Trail Location:
+                <input type="text" class="form-control" id="file-trailLocation" placeholder="Location">
+                <br>
+
+                Trail Difficulty:
+                <input type="text" class="form-control" id="file-trailDifficulty" placeholder="Difficulty">
+                <br>
+
+                Trail Description:
+                <input type="text" class="form-control" id="file-trailDescription" placeholder="A Brief Description">
                 </textarea><br/>
-            <input type="submit" value="Submit"> <input type="reset"></p>
-        </form>
+                <button type="button" onclick="submitFileForm()">Submit Trail!</button> <input type="reset">
+            </form>
+        </div>
         
+         <button id="add-file-button" class="btn btn-primary" onclick="toggleAddFileList()">Trail Archive</button>
+        
+        <div class="list-container" class="panel hidden" type="hidden"></div>
+        
+        
+        
+       <!-----*************** Archive/List*****************------>
+
+      <script id="list-template"   type="text/x-handlebars-template " class="panel hidden">
+         <div class="container-fluid">
+          <ul class="list-group">
+            {{#each files}}
+            <li class="list-group-item">
+              <strong> Trail Name: </strong>{{trailName}} 
+              <strong> Trail Length: </strong> {{trailLength}}  
+              <strong> Trail Location: </strong> {{trailLocation}}
+              <strong> Trail Difficulty: </strong> {{trailDifficulty}} <br> 
+              <strong> Trail Description: </strong> {{trailDescription}}    
+                
+              <span class="pull-right">
+                <button type="button" class="btn btn-xs btn-default" onclick="editFileClick('{{_id}}')">Edit</button>
+                <button type="button" class="btn btn-xs btn-danger" onclick="deleteFileClick('{{_id}}')">Delete</button>
+              </span>
+                <input type="hidden" id="file-id" value="" />
+            </li>
+            {{/each}}
+          </ul>
+         </div>
+
+
+        <!------------*******Scripts***********------->
+
+       </script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js"></script>
+        <script src="/js/app.js"></script>
+    
+        
+       <!-------------*********HandleBar Script that I do not understand***********-------->
+    
+        <script>            
+             $(document).ready(function() {
+        const data = {  }
+        const greetingTemplate = '';
+        const greetingCompiled = Handlebars.compile(greetingTemplate);
+        const greetingRendered = greetingCompiled(data);
+          
+        $('body form').first().after(greetingRendered);
+
+       refreshFileList();
+      });
+            
+        </script>
     </body>
 </html>
+

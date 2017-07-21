@@ -1,9 +1,15 @@
 
+//All the stuff the server requires (very important)
+
+const path = require('path');
+const bodyParser = require('body-parser');
+
+const mongoose = require('mongoose');
 const express = require('express');
 const config = require('./config');
 const router = require('./routes');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+
+
 
 
 
@@ -20,19 +26,21 @@ require('./models/index.js');
 const trailTrackerApp = express();
 
 
+
+
+//Serve the static files
+const publicPath = path.resolve(__dirname, '../public');
+trailTrackerApp.use(express.static(publicPath));
+
 // Body parser
 trailTrackerApp.use(bodyParser.json());
 
-// Pug Setup
-trailTrackerApp.set('view engine', 'pug');
-trailTrackerApp.set('views', __dirname + '/../views');
 
 
-trailTrackerApp.use(express.static(__dirname + '/../public'));
 
-trailTrackerApp.use('', router);
+trailTrackerApp.use('/api', router);
 
-
+//Starts the server
 trailTrackerApp.listen(config.port, function() {
   console.log(`${config.appName} is listening on port ${config.port}`);
 });
@@ -40,39 +48,4 @@ trailTrackerApp.listen(config.port, function() {
 
 
 
-/*//Serve the static files
-const publicPath = path.resolve(__dirname, '../public');
-trailTrackerApp.use(express.static(publicPath));
 
-
-
-
-
-
-
-
-
-
-
-// Include all of the routes
-var routes = require('./routes/index');
-trailTrackerApp.use('/', routes);
-
-
-
-
-
-
-
-
-/*trailTrackerApp.use(function(req, res, next) {
-  console.log("req.body BEFORE parsing", req.body);
-  next();
-});
-
-
-
-trailTrackerApp.use(function(req, res, next) {
-  console.log("req.body AFTER parsing", req.body);
-  next();
-});*/

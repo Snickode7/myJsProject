@@ -4,16 +4,19 @@ const router = require('express').Router();
 //const TrailInfo = require('../models/index');
 const mongoose = require('mongoose');
 
-//router.use('/doc', function(req, res, next) {
-  //res.end(`Documentation http://expressjs.com/`);
-//});
+
+
+router.use('/doc', function(req, res, next) {
+  res.end(`Documentation http://expressjs.com/`);
+});
+
 
 // GET /
-router.get('/', function(req, res, next) {
+router.get('/trailLogs', function(req, res, next) {
     mongoose.model('TrailInfo').find({deleted: {$ne: true}}, function(err, files) {
         if (err) {
             console.log(err);
-            return res.render('index');
+            return res.status(500).json(err);
         }
         res.json(files);
     });
@@ -24,8 +27,9 @@ router.get('/', function(req, res, next) {
 
 
 
-//POST entries from form /
-router.post('/', function(req, res, next){
+//POST Route /
+
+router.post('/trailLogs', function(req, res, next){
     const TrailFile = mongoose.model('TrailInfo');
     //create object with form input
     const trailData = {
@@ -47,11 +51,11 @@ router.post('/', function(req, res, next){
 });
 
 
+//Editing Route
 
-
-router.put('/trailInfo/:trailId', function(req, res, next) {
+router.put('/trailLogs/:trailId', function(req, res, next) {
     const TrailFile = mongoose.model('TrailInfo');
-    const trailId = req.params.trailId;
+    const trailId = req.params.fileId;
     
     TrailFile.findById(trailId, function(err, file) {
         if (err) {
@@ -62,13 +66,13 @@ router.put('/trailInfo/:trailId', function(req, res, next) {
             return res.status(404).json({message: "This File cannot be found??"});
         }
         
-        trailFile.trailName = req.body.trailName;
-        trailFile.trailLength = req.body.trailLength;
-        trailFile.trailLocation = req.body.trailLocation;
-        trailFile.trailDifficulty = req.body.trailDifficulty;
-        trailFile.trailDescription = req.body.trailDescription;
+        file.trailName = req.body.trailName;
+        file.trailLength = req.body.trailLength;
+        file.trailLocation = req.body.trailLocation;
+        file.trailDifficulty = req.body.trailDifficulty;
+        file.trailDescription = req.body.trailDescription;
         
-        trailFile.save(function(err, savedFile) {
+        file.save(function(err, savedFile) {
             res.json(savedFile);
         })
         
@@ -77,8 +81,9 @@ router.put('/trailInfo/:trailId', function(req, res, next) {
 });
 
 
+//Delete Route
 
-router.delete('/trailInfo/:trailId', function(req, res, next) {
+router.delete('/trailLogs/:trailId', function(req, res, next) {
     const TrailFile = mongoose.model('TrailInfo');
     const trailId = req.params.trailId;
     
@@ -101,7 +106,7 @@ router.delete('/trailInfo/:trailId', function(req, res, next) {
 
 
 
-router.get('/trailInfo/:trailId', function(req, res, next) {
+router.get('/trailLogs/:trailId', function(req, res, next) {
     const {trailId} = req.params;
     const trailFile = TrailInfo.find(entry => entry.id === trailId);
     if (!trailFile) {
@@ -118,48 +123,5 @@ router.get('/trailInfo/:trailId', function(req, res, next) {
  
 
 
-    
-    
-    
-/*router.post('/file', function(req, res, next) {
-  const newId = '' + FILES.length;
-  const data = req.body;
-  data.id = newId;
-
-  FILES.push(data);
-  res.status(201).json(data);
-});
-
-router.put('/file/:fileId', function(req, res, next) {
-  const {fileId} = req.params;
-  const file = FILES.find(entry => entry.id === fileId);
-  if (!file) {
-    return res.status(404).end(`Could not find file '${fileId}'`);
-  }
-
-  file.title = req.body.title;
-  file.description = req.body.description;
-  res.json(file);
-});
-
-router.delete('/file/:fileId', function(req, res, next) {
-  res.end(`Deleting file '${req.params.fileId}'`);
-});
-
-router.get('/file/:fileId', function(req, res, next) {
-  const {fileId} = req.params;
-  // same as 'const fileId = req.params.fileId'
-
-  const file = FILES.find(entry => entry.id === fileId);
-  if (!file) {
-    return res.status(404).end(`Could not find file '${fileId}'`);
-  }
-
-  res.json(file);
-});
-
-//router.get('/file/:fileId', function(req, res, next) {
-  //res.end(`Reading file '${req.params.fileId}'`);
-//});*/
 
 module.exports = router;
